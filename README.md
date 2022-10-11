@@ -14,3 +14,6 @@ JsonPowerDB is a Real-time, High Performance, Lightweight and Simple to Use, Res
 <li>It is low level (raw) form of data and is also human readable.</li>
 <li>It helps developers in faster coding, in-turn reduces development cost.</li>
 </ul>
+
+<h3>Screenshort</h3>
+<img src="https://github.com/Khushi17380/JSDBWebPage/blob/main/jpdb.png">

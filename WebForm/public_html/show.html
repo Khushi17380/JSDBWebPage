@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <title>Show</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="http://login2explore.com/jpdb/resources/js/0.0.3/jpdb-commons.js"></script>
+    </head>
+    <body>
+    <center><h1>Show Employee Data</h1></center>
+    <center><input id="EmpID" maxlength="50" placeholder="EmpID" name="EmpID" type="text" /><br><br>
+        <input type="button" value="SHOW DATA" onclick="showData();"/></center>
+    <p id="show"></p>
+    <script>
+        function executeCommand(reqString, dbBaseUrl, apiEndPointUrl) {
+            var url = dbBaseUrl + apiEndPointUrl;
+            var jsonObj;
+            $.post(url, reqString, function (result) {
+                jsonObj = JSON.parse(result);
+            }).fail(function (result) {
+                var dataJsonObj = result.responseText;
+                jsonObj = JSON.parse(dataJsonObj);
+            });
+            return jsonObj;
+        }
+        function showData(){
+            var token = "90937743|-31949297317721798|90942058";
+            var dbname = "EmployeeData";
+            var relationName = "Employee-Data";
+            var EmpID = document.getElementById("EmpID").value;
+            var jsonStr = {
+                EmpID : EmpID
+            };
+            var reqString = createGETRequest(token, dbname, relationName, JSON.stringify(jsonStr));
+            alert(reqString);
+            jQuery.ajaxSetup({async: false});
+            var resultObj = executeCommand(reqString,
+                    "http://api.login2explore.com:5577", "/api/irl");
+            jQuery.ajaxSetup({async: true});
+            
+            var data = JSON.stringify(resultObj);
+            if(resultObj.message=="DATA NOT FOUND"){
+                var mainContainer = document.getElementById("show");
+                mainContainer.innerHTML = "<center>"+resultObj.message+"</center>";
+            }
+            else
+            {
+            var res = data.split("\"");
+            var mainContainer = document.getElementById("show");
+            mainContainer.innerHTML = "<center>EmpID : " + res[18].replace("\\","") + " <br>     Branch : " + res[10].replace("\\","")
+               + " <br>    Name : " + res[14].replace("\\","") + " <br>    Email : " + res[6].replace("\\","")+"</center>"; 
+
+        }
+            
+        }
+    </script>
+    </body>
+</html>

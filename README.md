@@ -1,4 +1,4 @@
-# JSDBWebPage
+# JPDBWebPage
 Json Power Database
 <a href="https://login2explore.com/jpdb/docs.html">Document Link</a>
 <h1>This Project is all about CRUD operation in JsonPowerDB (JPDB)</h1>
